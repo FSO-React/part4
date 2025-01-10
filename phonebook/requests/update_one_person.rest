@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/persons/677feabfba356591972bfebf
+Content-Type: application/json
+
+{
+  "name": "APITester Updated",
+  "number": "023-346643"
+}

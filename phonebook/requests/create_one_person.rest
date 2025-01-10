@@ -1,0 +1,16 @@
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Invalid Number Test",
+  "number": "123123123"
+}
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Va",
+  "number": "023-346243"
+}
