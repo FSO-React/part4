@@ -1,0 +1,31 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "title": "My first blog",
+  "author": "John Doe",
+  "url": "http://www.johndoe.com",
+  "likes": 10
+}
+
+###
+
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Successful blog",
+  "author": "Alejandro Diaz Crivelli",
+  "url": "https://github.com/diazale16",
+  "likes": 16112001
+}
+
+###
+
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "title": "The last.",
+  "author": "Unknown writter"
+}
