@@ -4,10 +4,8 @@ const mongoose = require('mongoose')
 // Conection
 const username = process.env.MONGODB_USERNAME
 const password = process.env.MONGODB_PASSWORD
-const cluster = 'cluster0'
-const appName = 'Cluster0'
 
-const url =`mongodb+srv://${username}:${password}@${cluster}.l3wwy.mongodb.net/appNote?retryWrites=true&w=majority&appName=${appName}`
+const url =`mongodb+srv://${username}:${password}@cluster0.l3wwy.mongodb.net/testNoteApp?retryWrites=true&w=majority&appName=Cluster0`
 mongoose.set('strictQuery',false)
 
 mongoose.connect(url)
@@ -22,19 +20,19 @@ const Note = mongoose.model('Note', noteSchema)
 
 
 // SAVE NOTE
-// const note = new Note({
-//   content: 'Maybe the last... just maybe...',
-//   important: true,
-// })
-// note.save().then(result => {
-//   console.log('note saved!')
-//   mongoose.connection.close()
-// })
-
-// GET NOTES
-Note.find({}).then(result => {
-  result.forEach(note => {
-    console.log(note)
-  })
+const note = new Note({
+  content: 'HTML is easy',
+  important: true,
+})
+note.save().then(result => {
+  console.log('note saved!')
   mongoose.connection.close()
 })
+
+// GET NOTES
+// Note.find({}).then(result => {
+//   result.forEach(note => {
+//     console.log(note)
+//   })
+//   mongoose.connection.close()
+// })
