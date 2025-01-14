@@ -13,10 +13,6 @@ const initialBlogs = [
     'url': 'https://github.com/diazale16',
     'likes': 16112001
   },
-  {
-    'title': 'The last.',
-    'author': 'Unknown writter'
-  }
 ]
 
 const nonExistingId = async () => {

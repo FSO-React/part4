@@ -32,7 +32,7 @@ describe('blogs API', () => {
   test('a valid blog can be added ', async () => {
     const newBlog = {
       title: 'A super mega fancy blog.',
-      author: true,
+      author: 'Jorge',
       url: 'https://supermegafancyblog.com',
       likes: 5432,
     }
@@ -47,8 +47,28 @@ describe('blogs API', () => {
     assert(titles.includes(newBlog.title))
   })
 
+  test('a blog without likes can be added with default value', async () => {
+    const newBlog = {
+      title: 'No very liked blog',
+      author: 'Carlos',
+      url: 'https://unpopular.com',
+    }
+    const addedBlog = await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+    assert.strictEqual(addedBlog.body.likes, 0)
+    const blogsAtEnd = await helper.blogsInDb()
+    assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
+    const titles = blogsAtEnd.map(b => b.title)
+    assert(titles.includes(newBlog.title))
+  })
+
   test('blog without title is not added', async () => {
     const newBlog = {
+      author: 'Andres',
+      url: 'http://insecureandrew.com',
       likes: 4875
     }
     await api
@@ -59,8 +79,10 @@ describe('blogs API', () => {
     assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
   })
 
-  test('blog without author is not added', async () => {
+  test('blog without url is not added', async () => {
     const newBlog = {
+      title: 'Missing URL',
+      author: 'Andres',
       likes: 4875
     }
     await api
@@ -79,6 +101,13 @@ describe('blogs API', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
     assert.deepStrictEqual(resultBlog.body, blogToView)
+  })
+
+  test('blogs have property id instead of _id', async () => {
+    const blogs = await helper.blogsInDb()
+    assert.strictEqual(Array.isArray(blogs), true)
+    assert.ok(blogs[0].id)
+    assert.strictEqual(blogs[0]._id, undefined)
   })
 
   test('a blog can be deleted', async () => {
