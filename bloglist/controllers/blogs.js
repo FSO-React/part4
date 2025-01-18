@@ -8,11 +8,10 @@ blogsRouter.get('/', async (request, response) => {
 
 blogsRouter.get('/:id', async (request, response) => {
   const blog = await Blog.findById(request.params.id)
-  if (blog) {
-    response.status(200).json(blog)
-  } else {
+  if (!blog) {
     response.status(404).end()
   }
+  response.status(200).json(blog)
 })
 
 blogsRouter.post('/', async (request, response) => {
@@ -28,6 +27,10 @@ blogsRouter.post('/', async (request, response) => {
 })
 
 blogsRouter.delete('/:id', async (request, response) => {
+  const blog = await Blog.findById(request.params.id)
+  if (!blog) {
+    return response.status(404).end()
+  }
   await Blog.findByIdAndDelete(request.params.id)
   response.status(204).end()
 })
