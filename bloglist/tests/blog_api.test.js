@@ -165,6 +165,70 @@ describe('blogs API with initially some blogs added', () => {
     })
 
   })
+
+  describe('updating a blog', () => {
+
+    test('succeeds with status code 200 if id is valid and a proper body', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+      const selectedBlog = blogsAtStart[0]
+      const blogToUpdate = {
+        title: selectedBlog.title,
+        author: selectedBlog.author,
+        url: selectedBlog.url,
+        likes: selectedBlog.likes + 1,
+      }
+      await api
+        .put(`/api/blogs/${selectedBlog.id}`)
+        .send(blogToUpdate)
+        .expect(200)
+      const blogsAtEnd = await helper.blogsInDb()
+      const updatedBlog = blogsAtEnd.find(b => b.id === selectedBlog.id)
+      assert.strictEqual(updatedBlog.likes, blogToUpdate.likes)
+    })
+
+    test('fails with status code 400 if id is invalid', async () => {
+      const invalidId = '5a3d5da59070081a82a3445'
+      const blogToUpdate = {
+        title: 'A super mega fancy blog.',
+        author: 'Jorge',
+        url: 'https://supermegafancyblog.com',
+        likes: 5432,
+      }
+      await api
+        .put(`/api/blogs/${invalidId}`)
+        .send(blogToUpdate)
+        .expect(400)
+    })
+
+    test('fails with status code 404 if id does not exist', async () => {
+      const nonExistingId = await helper.nonExistingId()
+      const blogToUpdate = {
+        title: 'A super mega fancy blog.',
+        author: 'Jorge',
+        url: 'https://supermegafancyblog.com',
+        likes: 5432,
+      }
+      await api
+        .put(`/api/blogs/${nonExistingId}`)
+        .send(blogToUpdate)
+        .expect(404)
+    })
+
+    test('fails with status code 400 if the body of the update is invalid', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+      const selectedBlog = blogsAtStart[0]
+      const blogToUpdate = {
+        title: '',
+        author: selectedBlog.author,
+        url: '',
+        likes: selectedBlog.likes + 1,
+      }
+      await api
+        .put(`/api/blogs/${selectedBlog.id}`)
+        .send(blogToUpdate)
+        .expect(400)
+    })
+  })
 })
 
 after(async () => {
