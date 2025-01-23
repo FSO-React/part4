@@ -1,8 +1,8 @@
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NzkxNzU4N2JkNjAyNmExYWY0ZTVjZGYiLCJpYXQiOjE3Mzc1ODgzMTV9.aNgS2-A406JQ5W3BdPJC9GhcnoU2Yj03z5zel6exEsk
 
 {
-  "content": "Note with an user",
-  "important": true,
-  "userId": "678ce369b1e0204b0731c0f3" 
+  "content": "Note with user authenticated with the token of the header",
+  "important": true
 }
