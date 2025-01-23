@@ -14,11 +14,24 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZ
 
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NzkxNzU4N2JkNjAyNmExYWY0ZTVjZGYiLCJpYXQiOjE3Mzc2NDU4NjQsImV4cCI6MTczNzY0OTQ2NH0.FzMrEyAD1pBriv5130RwMxMFfIGrscBKpN0-3is0VX8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NzkxYzI5Y2M1MzkxYzI5NGY3ZTA2MzYiLCJpYXQiOjE3Mzc2NDg2NzksImV4cCI6MTczNzY1MjI3OX0.iKrPFePesY__BsxeU99zwsJ9_yOfxhL_iZAsYG25ewY
 // admin
 
 {
   "title": "Authorized blog",
   "author": "Welix Wiaz Wrivelli",
   "url": "https://weeeeelix.com"
+}
+
+###
+
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NzkxYzI5Y2M1MzkxYzI5NGY3ZTA2MzYiLCJpYXQiOjE3Mzc2NDg2NzksImV4cCI6MTczNzY1MjI3OX0.iKrPFePesY__BsxeU99zwsJ9_yOfxhL_iZAsYG25ewY
+// admin
+
+{
+  "title": "Middlware supremacy",
+  "author": "FSO Tutor",
+  "url": "https://asdasdasd.com"
 }
