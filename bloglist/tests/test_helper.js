@@ -1,31 +1,33 @@
 const Blog = require('../models/blog')
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
 const initialBlogs = [
   {
-    'title': 'My first blog',
-    'author': 'John Doe',
-    'url': 'http://www.johndoe.com',
-    'likes': 10
+    title: 'My first blog',
+    author: 'John Doe',
+    url: 'http://www.johndoe.com',
+    likes: 10,
   },
   {
-    'title': 'Successful blog',
-    'author': 'Alejandro Diaz Crivelli',
-    'url': 'https://github.com/diazale16',
-    'likes': 16112001
+    title: 'Successful blog',
+    author: 'Alejandro Diaz Crivelli',
+    url: 'https://github.com/diazale16',
+    likes: 16112001
   },
 ]
 
 const initialUsers = [
   {
-    'username': 'firstuser',
-    'name': 'Firstefon',
-    'password': 'f1234',
+    username: 'firstuser',
+    name: 'Firstefon',
+    password: 'f1234',
   },
   {
-    'username': 'seconduser',
-    'name': 'Secondtron',
-    'password': 's1234',
+    username: 'seconduser',
+    name: 'Secondtron',
+    password: 's1234',
   },
 ]
 
@@ -53,6 +55,22 @@ const usersInDb = async () => {
   return users.map(user => user.toJSON())
 }
 
+const artificialLogin = (user) => {
+  if (!user) {
+    return 'error'
+  }
+  const userForToken = {
+    username: user.username,
+    id: user._id,
+  }
+  const token = jwt.sign(
+    userForToken,
+    process.env.SECRET,
+    { expiresIn: 60*60 }
+  )
+  return { token, username: user.username, name: user.name }
+}
+
 module.exports = {
-  initialBlogs, initialUsers, nonExistingId, nonExistingIdUsers, blogsInDb, usersInDb
+  initialBlogs, initialUsers, nonExistingId, nonExistingIdUsers, blogsInDb, usersInDb, artificialLogin
 }
